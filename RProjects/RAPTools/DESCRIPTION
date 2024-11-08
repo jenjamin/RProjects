@@ -1,0 +1,11 @@
+Package: RAPTools
+Type: Package
+Title: Some useful functions for analysing atom probe data with R
+Version: 0.1.0
+Author: Benjamin Jenkins
+Maintainer: <benmjenkins123@gmail.com>
+Description: A collection of functions for reading files generated with IVAS and APSuite.  For example, functions for reading .APT, .pos, and .rrng files.
+    There are also functions for performing certain analysis on atom probe data.  These will be updated in due course.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true

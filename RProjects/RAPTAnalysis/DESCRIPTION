@@ -1,0 +1,10 @@
+Package: RAPTAnalysis
+Type: Package
+Title: Some useful functions for analysing atom probe data with R.   For example, performing GB analysis and detecting edge clusters.
+Version: 0.1.0
+Author: Benjamin Jenkins
+Maintainer: <benmjenkins123@gmail.com>
+Description: A collection of functions for analysing files generated with IVAS and APSuite.  Requires following dependencies tidyverse, RAPTools
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
