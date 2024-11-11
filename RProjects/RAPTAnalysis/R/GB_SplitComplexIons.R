@@ -1,9 +1,9 @@
 # Function for separating complex ions into their consituent elements
 require(PeriodicTable)
 require(InterpretMSSpectrum)
-SplitComplexIons <- function(){
+SplitComplexIons <- function(DataframeOfCounts){
 
-  IonList <- colnames(OneDCount %>%
+  IonList <- colnames(DataframeOfCounts %>%
                         select(-Distance))
   CorrectDF <- data.frame()
   for(Ions in IonList){
@@ -15,7 +15,7 @@ SplitComplexIons <- function(){
       warning(paste0("Error - ", Ions," contains at least one part that is not an element present in the periodic table \n"))
     }
     # Create dataframe with corrected count
-    IonCount <- OneDCount %>%
+    IonCount <- DataframeOfCounts %>%
       select(Distance, Ions)
     CorrectElementCountInIon = data.frame()
     for (Element in 1:length(SplitIon)) {
@@ -28,7 +28,7 @@ SplitComplexIons <- function(){
       CorrectElementCountInIon <- rbind(CorrectElementCountInIon,CorrectElementCount)
     }
     CorrectDF <- rbind(CorrectDF,
-                        CorrectElementCountInIon)
+                       CorrectElementCountInIon)
   }
 
   ElementCountDF <- CorrectDF %>%

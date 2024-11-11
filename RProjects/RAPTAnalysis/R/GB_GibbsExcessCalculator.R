@@ -1,6 +1,6 @@
 #Calculates Gibbs Excess of Interface
 
-GibbsExcessCalculator <- function(Area, DetectionEfficiency, GrainBoundary, Grain1, Grain2) {
+GibbsExcessCalculator <- function(Area, DetectionEfficiency, GrainBoundary, Grain1, Grain2, DataframeOfDeconvolutedCounts) {
   # Check detection efficiency valid
   if(DetectionEfficiency < 0 | DetectionEfficiency > 1){
     stop("Invalid DetectionEfficiency selected.  Must be between 0 and 1.  Please reinitiate.\n")
@@ -11,7 +11,7 @@ GibbsExcessCalculator <- function(Area, DetectionEfficiency, GrainBoundary, Grai
   UpperSurfacePosition <- max(GrainBoundary$Distance) / max(Grain2$Distance)
 
   TotalVolumeConc <- as.data.frame(colSums(
-    ElementCountDF %>%
+    DataframeOfDeconvolutedCounts %>%
       select(-Distance, -Atom_Count)
     )) %>%
     rownames_to_column("Element") %>%

@@ -1,6 +1,6 @@
 # Function to return summary of GB
-GrainBoundarySumm <- function(Area, Grain1, Grain2, GB) {
-  GBWidth <<- max(GB$Distance) - min(GB$Distance)
+GrainBoundarySumm <- function(Area, Grain1, Grain2, GB, CrossSectionType) {
+  GBWidth <- max(GB$Distance) - min(GB$Distance)
 
   GBComp <- as.data.frame(colSums(GB %>%
                                     select(-Distance,-Atom_Count)))
@@ -41,5 +41,5 @@ GrainBoundarySumm <- function(Area, Grain1, Grain2, GB) {
   #           row.names = FALSE)
   # setwd('..')
   print(paste0("Width of interface is: ",round(GBWidth,2)," nm (2dp)"))
-  print(paste0("Area used to calculated interface values was : ",round(Area,2)," nm^2 (2dp). *Area calculated by assuming square cross section*"))
+  print(paste0("Area used to calculated interface values was : ",round(Area,2)," nm^2 (2dp). *Area calculated by assuming ", CrossSectionType, " cross section*"))
 }

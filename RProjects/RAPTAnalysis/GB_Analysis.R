@@ -15,9 +15,9 @@ if("BiocManager" %in% rownames(installed.packages()) == FALSE){
 
 #### User defined  variables - change these for each analysis ####
 # Path to .pos file
-PosLocation <- c("")
+PosLocation <- c()
 # Path to .rrng file
-RangeFileLocation <- c("")
+RangeFileLocation <- c()
 # Detection Efficiency of instrument
 DetectionEfficiency = 0.37
 # Orientation is the "x", "y", or "z" direction that is perpendicular to the interface
@@ -34,12 +34,15 @@ RangedPos <- PosFileRanger(
 RangeInfo <- read_rrng(RangeFileLocation)
 
 #### Generate 1D concentration profile ####
-OneDCountFunc(PosFile = RangedPos,
-              NumberOfBins = Bins,
-              Direction = Orientation)
+GB_PosOneDimensionalPlot(PosFile = RangedPos,
+                         NumberOfBins = Bins,
+                         Direction = Orientation)
 
 # Calculate extent of GB region and perform Gibbs excess calculations
-DetermineGBExtents(CrossSectionAreaType = "ellipse")
+DetermineGBExtents(PosFile = RangedPos,
+                   NumberOfBins = Bins,
+                   Direction = Orientation,
+                   CrossSectionAreaType = "ellipse")
 
 # Need to save .csv of GB calcs
 write.csv(GBSummary,

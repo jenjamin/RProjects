@@ -3,7 +3,7 @@ myTheme <- function(relSize = 16) {
   return(theme_classic(relSize))
 }
 
-OneDCountFunc <- function(PosFile, NumberOfBins, Direction){
+GB_PosOneDimensionalPlot <- function(PosFile, NumberOfBins, Direction){
   if(NumberOfBins < 0 | !NumberOfBins%%1==0){
     stop("Invalid NumberOfBins selected.  Must be integer and greater than 0.  Please reinitiate.\n")
   }
@@ -18,9 +18,9 @@ OneDCountFunc <- function(PosFile, NumberOfBins, Direction){
     mutate(
       Quant =  ntile(NoiselessPos[,Direction], NumberOfBins),
       DirectionDistance = NoiselessPos[,Direction]
-      )
+    )
 
-  OneDCount <<- merge(
+  OneDCount <- merge(
     QuantiledDF %>%
       group_by(Quant) %>%
       summarise(Distance = mean(DirectionDistance)) %>%
@@ -32,9 +32,9 @@ OneDCountFunc <- function(PosFile, NumberOfBins, Direction){
       spread(Ion, Ioncount)) %>%
     select(-Quant)
 
-  OneDCount[is.na(OneDCount)] <<- 0
+  OneDCount[is.na(OneDCount)] <- 0
 
-  OneDConc <<- OneDCount %>%
+  OneDConc <- OneDCount %>%
     gather(Ion, Count, -Distance) %>%
     group_by(Distance) %>%
     mutate(Total = sum(Count),
@@ -52,20 +52,20 @@ OneDCountFunc <- function(PosFile, NumberOfBins, Direction){
                           select(Color, Ion) %>%
                           distinct())$Ion,
                        "Unranged")
-  myColors <<- myColors # makes custom colours available for other functions
+  myColors <- myColors # makes custom colours available for other functions
 
-  print(ggplot(OneDCount %>%
-           gather(Ion, Count, - Distance),
-           aes(Distance, Count, color = Ion)) +
-          geom_point(shape = 4,
-                     stroke = 2) +
-          geom_line(size = 2, alpha = 0.3) +
-          scale_color_manual(values = myColors) +
-          myTheme() +
-          theme(aspect.ratio = 1) +
-          labs(x = "Distance (nm)",
-               y = "Count") +
-          theme(legend.position = "bottom"))
+  # print(ggplot(OneDCount %>%
+  #                gather(Ion, Count, - Distance),
+  #              aes(Distance, Count, color = Ion)) +
+  #         geom_point(shape = 4,
+  #                    stroke = 2) +
+  #         geom_line(size = 2, alpha = 0.3) +
+  #         scale_color_manual(values = myColors) +
+  #         myTheme() +
+  #         theme(aspect.ratio = 1) +
+  #         labs(x = "Distance (nm)",
+  #              y = "Count") +
+  #         theme(legend.position = "bottom"))
 
   print(ggplot(OneDConc %>%
                  gather(Ion, Concentration, - Distance),
@@ -80,5 +80,13 @@ OneDCountFunc <- function(PosFile, NumberOfBins, Direction){
           labs(x = "Distance (nm)",
                y = "Concentration (Ionic %)") +
           theme(legend.position = "bottom"))
-  }
+
+  #Save variables to global environment
+  list2env(list(
+    OneDCount = OneDCount,
+    myColors = myColors,
+    OneDConc = OneDConc
+  ),globalenv())
+
+}
 

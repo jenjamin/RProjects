@@ -15,6 +15,10 @@ CSR_DepthCalc <- function(
   if(length(ChargeStates) > 5){
     stop('More than 5 charge states selected. This is likely not physical.\n')
   }
+  # Check bin size is valid
+  if(BinSize <= 0){
+    stop("Invalid BinSize selected.  Must be greater than 0.  Please reinitiate.\n")
+  }
 
   # Read .rrng file
   Ranges <- read_rrng(RangeFilePath)

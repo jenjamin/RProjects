@@ -15,11 +15,12 @@ require(geometry)
 require(spatstat)
 require(alphashape3d)
 
-EdgeClusterOutput <- findEdgeClustersConvex(posFileName = "C:/Users/gc9307/OneDrive - UK Atomic Energy Authority/Documents/Code/Edge-Cluster-Detection-master/Test Files/006_full.pos",
-                       clusterIndexPosFile = "C:/Users/gc9307/OneDrive - UK Atomic Energy Authority/Documents/Code/Edge-Cluster-Detection-master/Test Files/006_full.cluster.indexed.pos",
-                       clusterStatsFile = "C:/Users/gc9307/OneDrive - UK Atomic Energy Authority/Documents/Code/Edge-Cluster-Detection-master/Test Files/006_full - Top-Level ROI - Cluster Analysis (Ni, Cu).csv",
-                       SamplingFraction = 0.005, # How much one would like to sample the POS file by
-                       NNDMultiplier = 4 # What NND multiplier should be used to calculate alpha
+EdgeClusterOutput <- findEdgeClustersConvex(
+  posFileName = ,
+  clusterIndexPosFile = ,
+  clusterStatsFile ,
+  SamplingFraction = 0.005, # How much one would like to sample the POS file by
+  NNDMultiplier = 4 # What NND multiplier should be used to calculate alpha
 )
 
 # View Alpha shape that is generated
